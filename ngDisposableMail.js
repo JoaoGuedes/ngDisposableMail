@@ -17,6 +17,9 @@ angular.module("ngDisposableMail", [])
                     return $http.get(get_url)
                         .then(function(response) {
                             return parseCb ? parseCb({ data: response.data }) : response.data.split('\n');
+                        })
+                        .catch(function() {
+                            console.log('ngDisposableMail: Unable to fetch blacklist');
                         });
                 }; 
             },
