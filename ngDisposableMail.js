@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module("ngDisposableMail", [])
-    .directive("ngDisposableMail", function($http) {
+    .directive("ngDisposableMail", function() {
                 
         return {
             restrict: 'A',
@@ -11,7 +11,7 @@ angular.module("ngDisposableMail", [])
                 blacklistUrl: '=url',
                 blacklistUrlParseFn: '&'
             },
-            controller: function($scope) {
+            controller: function($scope, $http) {
                 $scope.getBlacklist = function(url, parseCb) {
                     var get_url = url || 'https://raw.githubusercontent.com/martenson/disposable-email-domains/master/disposable_email_blacklist.conf';
                     return $http.get(get_url)
