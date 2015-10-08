@@ -1,6 +1,8 @@
 #ngDisposableMail
 Disposable email validation for AngularJS
 
+Example: <http://plnkr.co/MLVEIS>
+
 ##Usage
 Import **ngDisposableMail** module after angular
 

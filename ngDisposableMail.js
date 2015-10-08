@@ -36,7 +36,6 @@ angular.module("ngDisposableMail", [])
                     });
                     
                 ngModel.$parsers.push(function(value) {
-                    var parsed_domain;
                     while (parsed_domain = domain_regex.exec(value)) {
                         if (blacklist.indexOf(parsed_domain[1]) !== -1) {
                             ngModel.$setValidity("disposable", false);
