@@ -2,7 +2,7 @@
 
 angular.module("ngDisposableMail", [])
     .directive("ngDisposableMail", function() {
-                
+
         return {
             restrict: 'A',
             require: '^ngModel',
@@ -21,15 +21,15 @@ angular.module("ngDisposableMail", [])
                         .catch(function() {
                             console.log('ngDisposableMail: Unable to fetch blacklist');
                         });
-                }; 
+                };
             },
             link: function(scope, element, attrs, ngModel) {
                 var parsed_domain,
                     blacklist = [],
                     domain_regex = /^[A-Za-z0-9._%+-]+@([A-Za-z0-9-.]+)$/g;
-                    
+
                 scope.domainBlacklist = scope.domainBlacklist || [];
-                
+
                 scope.blacklistUrlParseFn = attrs.blacklistUrlParseFn ? scope.blacklistUrlParseFn : undefined;
                 scope.getBlacklist(scope.url, scope.blacklistUrlParseFn)
                     .then(function(list) {
@@ -37,17 +37,17 @@ angular.module("ngDisposableMail", [])
                             blacklist = list.concat(scope.domainBlacklist);
                         }
                     });
-                    
+
                 ngModel.$parsers.push(function(value) {
                     while (parsed_domain = domain_regex.exec(value)) {
                         if (blacklist.indexOf(parsed_domain[1]) !== -1) {
                             ngModel.$setValidity("disposable", false);
-                            return true;
+                            return value;
                         }
                     }
                     ngModel.$setValidity("disposable", true);
-                    return false;
+                    return value;
                 });
             }
-        }; 
+        };
 });
